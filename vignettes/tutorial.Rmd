@@ -1,6 +1,6 @@
 ---
-title: "my package tutorial"
-author: "Lauren"
+title: "stat302Project Package tutorial"
+author: "Lauren Ng"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{my package tutorial}
@@ -8,6 +8,32 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+# Installation
+To download the corncob package, use the code below.
+
+```{r eval=FALSE}
+install.packages("stat302Package")
+library(stat302Package)
+```
+
+Alternatively, you can install the development version directly from GitHub.
+
+```{r eval=FALSE}
+# install.packages("devtools")
+devtools::install_github("laurenng/stat302Package")
+library(stat302Package)
+```
+
+# Tutorial for my_t.test
+
+
+# Tutorial for my_lm
+
+
+# Tutorial for my_knn_cv
+
+
+# Tutorial for my_rf_cv
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,

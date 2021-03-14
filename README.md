@@ -5,7 +5,7 @@
 [![R-CMD-check](https://github.com/laurenng/stat302Package/workflows/R-CMD-check/badge.svg)](https://github.com/laurenng/stat302Package/actions)
 <!-- badges: end -->
 
-The goal of stat302Package is to ...
+The goal of stat302Package is to create something awesome and good looking :) 
 
 ## Installation
 
