@@ -1,9 +1,9 @@
 ---
-title: "stat302Project Package tutorial"
+title: "Project 3: stat302Project tutorial"
 author: "Lauren Ng"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{my package tutorial}
+  %\VignetteIndexEntry{stat302Project tutorial}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -24,7 +24,28 @@ devtools::install_github("laurenng/stat302Package")
 library(stat302Package)
 ```
 
+# Use
+
+The vignette demonstrates example usage of all main functions. Please file an issue if you have a request for a tutorial that is not currently included. You can see the vignette by using the following code:
+
+```{r eval=FALSE}
+library(stat302Project)
+# Use this to view the vignette in the corncob HTML help
+help(package = "stat302Project", help_type = "html")
+# Use this to view the vignette as an isolated HTML file
+utils::browseVignettes(package = "stat302Project")
+```
+
 # Tutorial for my_t.test
+```{r, include = FALSE}
+# head(my_gapminder)
+
+# lifeExpect <- my_gapminder$lifeExp
+
+
+# two sided: 
+# my_t.test(lifeExpect, "two-sided", 60)
+```
 
 
 # Tutorial for my_lm
@@ -34,12 +55,7 @@ library(stat302Package)
 
 
 # Tutorial for my_rf_cv
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
+
 
 ```{r setup}
 library(stat302Package)
