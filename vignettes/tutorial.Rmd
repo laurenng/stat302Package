@@ -40,7 +40,7 @@ utils::browseVignettes(package = "stat302Project")
 ```{r, include = FALSE}
 # head(my_gapminder)
 
-# lifeExpect <- my_gapminder$lifeExp
+lifeExpect <- my_gapminder$lifeExp
 
 
 # two sided: 

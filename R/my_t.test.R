@@ -1,7 +1,7 @@
-#' t-test function
+#' T-test function
 #'
 #' This function performs a t-test with the given parameters:
-#' vector, alternative hypothesis, and mu number
+#' vector, alternative hypothesis, and mu number.
 #'
 #' @param x a numeric vector of data
 #' @param alternative a character string specifying the alternative hypothesis.
@@ -12,14 +12,9 @@
 #'         degree of freedom, value of alternative parameter, and p-value
 #'
 #' @examples
-#' my_t.test(my_gapminder$lifeExp, 2, 2)
-#' my_t.test(my_gapminder$pop, 1, 5)
+#' my_t.test(my_gapminder$lifeExp, alternative = 2, mu = 2)
 #'
 #' @export
-
-# DO I DO IT HERE??
-library(stringr)
-
 
 my_t.test <- function(x, alternative, mu) {
   if (alternative != "two.sided"

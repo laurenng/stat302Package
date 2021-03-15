@@ -29,7 +29,7 @@ test_that("alternative two sided", {
   expect_equal(myTest[[2]], as.numeric(correctTest$parameter))
 
   # is this correct?? doing 1 - ?? or is the function wrong
-  expect_equal(myTest[[4]], as.numeric(correctTest$p.value) / 2)
+  expect_equal(myTest[[4]], as.numeric(correctTest$p.value))
 })
 test_that("error alternative", {
   lifeExp <- my_gapminder$lifeExp

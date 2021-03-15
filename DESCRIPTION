@@ -23,4 +23,6 @@ Depends:
 VignetteBuilder: knitr
 Imports: 
     stringr,
-    tibble
+    tibble,
+    magrittr,
+    palmerpenguins
