@@ -1,5 +1,4 @@
 test_that("coefficients are correct", {
-  lifeExp <- my_gapminder$lifeExp
   myTest <- my_lm(lifeExp ~ gdpPercap + continent, data = my_gapminder)
   correctTest <- lm(lifeExp ~ gdpPercap + continent, data = my_gapminder)
 
@@ -8,8 +7,11 @@ test_that("coefficients are correct", {
 
   expect_equal(myEstimate, correctEstimate)
 })
+test_that("structures are good", {
+  myTest <- my_lm(lifeExp ~ gdpPercap + continent, data = my_gapminder)
 
-# expect_is(my_output, “list”)
-
-# expect error with like string
-
+  expect_type(myTest, "double")
+})
+test_that("expect errors", {
+  expect_error(my_lm("potatoes", data = my_gapminder))
+})

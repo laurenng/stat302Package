@@ -3,6 +3,8 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/laurenng/stat302Package/workflows/R-CMD-check/badge.svg)](https://github.com/laurenng/stat302Package/actions)
+[![codecov](https://codecov.io/gh/laurenng/stat302Package/branch/master/graph/badge.svg?token=O4ZWPO2KLO)](https://codecov.io/gh/laurenng/stat302Package)
+
 <!-- badges: end -->
 
 The goal of stat302Package is to create something awesome and good looking :) 
