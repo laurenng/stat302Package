@@ -28,7 +28,7 @@ my_lm <- function(formula, data) {
   estimate <- beta_hat
 
   # counting number of variables in formula aka the covariates
-  formula_var <- as.character(str_split(formula, " ~ ")[3])
+  formula_var <- as.character(stringr::fun(str_split(formula, " ~ ")[3]))
   right_variables <- str_split(formula_var, " \\+ ")
   covariates <- sapply(right_variables, length) + 1
 

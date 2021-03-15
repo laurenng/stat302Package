@@ -9,6 +9,7 @@ test_that("alternative less than", {
   # is this correct?? doing 1 - ?? or is the function wrong
   expect_equal(myTest[[4]], 1 - as.numeric(correctTest$p.value))
 })
+
 test_that("alternative greater than", {
   lifeExp <- my_gapminder$lifeExp
   myTest <- my_t.test(lifeExp, "greater", 60)
@@ -20,6 +21,7 @@ test_that("alternative greater than", {
   # is this correct?? doing 1 - ?? or is the function wrong
   expect_equal(myTest[[4]], 1 - as.numeric(correctTest$p.value))
 })
+
 test_that("alternative two sided", {
   lifeExp <- my_gapminder$lifeExp
   myTest <- my_t.test(lifeExp, "two.sided", 60)
@@ -31,6 +33,7 @@ test_that("alternative two sided", {
   # is this correct?? doing 1 - ?? or is the function wrong
   expect_equal(myTest[[4]], as.numeric(correctTest$p.value))
 })
+
 test_that("error alternative", {
   lifeExp <- my_gapminder$lifeExp
   expect_error(my_t.test(lifeExp, "two", 60))
