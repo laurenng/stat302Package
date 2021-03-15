@@ -25,4 +25,8 @@ Imports:
     stringr,
     tibble,
     magrittr,
-    palmerpenguins
+    palmerpenguins,
+    class,
+    randomForest,
+    tidyr,
+    dplyr

@@ -22,7 +22,7 @@ This function performs a t-test with the given parameters:
 vector, alternative hypothesis, and mu number.
 }
 \examples{
-my_t.test(my_gapminder$lifeExp, alternative = 2, mu = 2)
+my_t.test(stat302Package::my_gapminder$lifeExp, alternative = "two.sided", mu = 2)
 
 }
 \keyword{t-test}

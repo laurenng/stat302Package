@@ -3,9 +3,13 @@ test_that("coefficients are correct", {
   myTest <- my_lm(lifeExp ~ gdpPercap + continent, data = my_gapminder)
   correctTest <- lm(lifeExp ~ gdpPercap + continent, data = my_gapminder)
 
-  # is this all i have to do??
   myEstimate <- myTest[,"Estimate"]
-  correctEstimate <- correctTest["coefficients"]
+  correctEstimate <- correctTest$coefficients
 
   expect_equal(myEstimate, correctEstimate)
 })
+
+# expect_is(my_output, “list”)
+
+# expect error with like string
+

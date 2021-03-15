@@ -24,14 +24,14 @@ cv_err: a numeric with the cross-validation misclassification error
 This function performs knn cross validation on a set of data.
 }
 \examples{
-data <- penguins \%>\%
-        drop_na()
+data <- my_penguins \%>\%
+        tidyr::drop_na()
 train_data <- data \%>\%
-              select(bill_length_mm, bill_depth_mm,
+              dplyr::select(bill_length_mm, bill_depth_mm,
                      flipper_length_mm, body_mass_g)
 target_class <- data$species
 
-my_knn_cv(train_data, target_class, alternative = 2, mu = 2)
+my_knn_cv(train_data, target_class, 1, 5)
 
 }
 \keyword{knn_cv}

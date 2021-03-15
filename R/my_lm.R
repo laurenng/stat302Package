@@ -11,7 +11,7 @@
 #'         Std. Error, t value, and Pr(>|t|)
 #'
 #' @importFrom stats model.frame model.matrix model.response na.omit predict pt sd
-#' @importFrom dplyr filter
+#' @importFrom stringr str_split
 #'
 #' @examples
 #' my_lm(lifeExp ~ gdpPercap + continent, data = my_gapminder)
@@ -31,7 +31,7 @@ my_lm <- function(formula, data) {
   estimate <- beta_hat
 
   # counting number of variables in formula aka the covariates
-  formula_var <- as.character(stringr::fun(str_split(formula, " ~ ")[3]))
+  formula_var <- as.character(str_split(formula, " ~ ")[3])
   right_variables <- str_split(formula_var, " \\+ ")
   covariates <- sapply(right_variables, length) + 1
 

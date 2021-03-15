@@ -12,7 +12,7 @@ vignette: >
 To download the corncob package, use the code below.
 
 ```{r eval=FALSE}
-install.packages("stat302Package")
+# install.packages("stat302Package)
 library(stat302Package)
 ```
 
@@ -37,7 +37,9 @@ utils::browseVignettes(package = "stat302Package")
 ```
 
 # Tutorial for my_t.test
+```{r}
 
+``` 
 
 # Tutorial for my_lm
 

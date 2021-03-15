@@ -1,21 +1,23 @@
 #' Random Forest Cross-Validation Function
 #'
 #' This function performs a cross validation using the random forest package
-#' to train a model.
+#' to train a model. predicting \code{body_mass_g} using the covariates of
+#' \code{bill_length_mm}, \code{bill_depth_mm}, and \code{flipper_length_mm}.
 #'
 #' @param k number of folds
 #' @keywords RandomForest, Cross Validation
 #'
 #' @return number with the cross-validation error value
 #'
+#' @importFrom randomForest randomForest
+#' @importFrom  tidyr drop_na
 #' @examples
 #' my_rf_cv(4)
 #'
 #' @export
-
 my_rf_cv <- function(k) {
   # length of penguins dataset
-  data <- penguins %>% drop_na()
+  data <- stat302Package::my_penguins %>% drop_na()
   n <- nrow(data)
 
   # spliting data into different samples based on fold number

@@ -6,7 +6,6 @@ test_that("alternative less than", {
   expect_equal(myTest[[1]], as.numeric(correctTest$statistic))
   expect_equal(myTest[[2]], as.numeric(correctTest$parameter))
 
-  # is this correct?? doing 1 - ?? or is the function wrong
   expect_equal(myTest[[4]], 1 - as.numeric(correctTest$p.value))
 })
 
@@ -18,7 +17,6 @@ test_that("alternative greater than", {
   expect_equal(myTest[[1]], as.numeric(correctTest$statistic))
   expect_equal(myTest[[2]], as.numeric(correctTest$parameter))
 
-  # is this correct?? doing 1 - ?? or is the function wrong
   expect_equal(myTest[[4]], 1 - as.numeric(correctTest$p.value))
 })
 
@@ -30,7 +28,6 @@ test_that("alternative two sided", {
   expect_equal(myTest[[1]], as.numeric(correctTest$statistic))
   expect_equal(myTest[[2]], as.numeric(correctTest$parameter))
 
-  # is this correct?? doing 1 - ?? or is the function wrong
   expect_equal(myTest[[4]], as.numeric(correctTest$p.value))
 })
 

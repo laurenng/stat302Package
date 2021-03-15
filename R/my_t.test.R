@@ -12,7 +12,7 @@
 #'         degree of freedom, value of alternative parameter, and p-value
 #'
 #' @examples
-#' my_t.test(my_gapminder$lifeExp, alternative = 2, mu = 2)
+#' my_t.test(stat302Package::my_gapminder$lifeExp, alternative = "two.sided", mu = 2)
 #'
 #' @export
 
