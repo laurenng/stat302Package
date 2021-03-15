@@ -10,6 +10,9 @@
 #' @return table with rows for each coefficient and columns for the Estimate,
 #'         Std. Error, t value, and Pr(>|t|)
 #'
+#' @importFrom stats model.frame model.matrix model.response na.omit predict pt sd
+#' @importFrom dplyr filter
+#'
 #' @examples
 #' my_lm(lifeExp ~ gdpPercap + continent, data = my_gapminder)
 #'

@@ -15,6 +15,26 @@ You can install the released version of stat302Package from [CRAN](https://CRAN.
 install.packages("stat302Package")
 ```
 
+Alternatively, you can install the development version directly from GitHub.
+
+```{r eval=FALSE}
+# install.packages("devtools")
+devtools::install_github("laurenng/stat302Package")
+library(stat302Package)
+```
+
+# Use
+
+The vignette demonstrates example usage of all main functions. Please file an issue if you have a request for a tutorial that is not currently included. You can see the vignette by using the following code:
+
+```{r eval=FALSE}
+library(stat302Package)
+# Use this to view the vignette in the stat302Package HTML help
+help(package = "stat302Package", help_type = "html")
+# Use this to view the vignette as an isolated HTML file
+utils::browseVignettes(package = "stat302Package")
+```
+
 ## Example
 
 This is a basic example which shows you how to solve a common problem:
