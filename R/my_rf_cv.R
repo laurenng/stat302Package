@@ -5,7 +5,7 @@
 #' \code{bill_length_mm}, \code{bill_depth_mm}, and \code{flipper_length_mm}.
 #'
 #' @param k number of folds
-#' @keywords RandomForest, Cross Validation
+#' @keywords RandomForest, Cross Validation, prediction
 #'
 #' @return number with the cross-validation error value
 #'

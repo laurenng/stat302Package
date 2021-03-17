@@ -6,7 +6,7 @@
 #' @param x a numeric vector of data
 #' @param alternative a character string specifying the alternative hypothesis.
 #' @param mu a number indicating the null hypothesis value of the mean.
-#' @keywords t-test
+#' @keywords t-test, inference
 #'
 #' @return list with the following elements: numeric test statistic,
 #'         degree of freedom, value of alternative parameter, and p-value
@@ -41,6 +41,9 @@ my_t.test <- function(x, alternative, mu) {
   }
 
   # returning the list
-  result <- list(t_stat, df, alternative, pvalue)
+  result <- list("test_stat" = t_stat,
+                 "df" = df,
+                 "alternative" = alternative,
+                 "p_val" = pvalue)
   return(result)
 }

@@ -7,17 +7,16 @@
 
 <!-- badges: end -->
 
-The goal of stat302Package is to create something awesome and good looking :) 
+The goal of stat302Package is to demonstrate my understandings of R packages. 
+This package includes the following functions: 
+- my_t.test
+- my_lm
+- my_knn_cv
+- my_rf_cv
 
 ## Installation
 
-You can install the released version of stat302Package from [CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("stat302Package")
-```
-
-Alternatively, you can install the development version directly from GitHub.
+You can install the development version directly from GitHub.
 
 ```{r eval=FALSE}
 # install.packages("devtools")

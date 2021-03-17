@@ -2,7 +2,7 @@ Package: stat302Package
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
+    person(given = "Lauren",
            family = "Last",
            role = c("aut", "cre"),
            email = "first.last@example.com",
@@ -29,4 +29,5 @@ Imports:
     class,
     randomForest,
     tidyr,
-    dplyr
+    dplyr,
+    ggplot2
