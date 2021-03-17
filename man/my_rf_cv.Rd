@@ -23,4 +23,5 @@ my_rf_cv(4)
 }
 \keyword{Cross}
 \keyword{RandomForest,}
-\keyword{Validation}
+\keyword{Validation,}
+\keyword{prediction}

@@ -25,4 +25,5 @@ vector, alternative hypothesis, and mu number.
 my_t.test(stat302Package::my_gapminder$lifeExp, alternative = "two.sided", mu = 2)
 
 }
-\keyword{t-test}
+\keyword{inference}
+\keyword{t-test,}

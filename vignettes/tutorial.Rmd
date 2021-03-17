@@ -9,14 +9,8 @@ vignette: >
 ---
 
 # Installation
-To download the corncob package, use the code below.
-
-```{r eval=FALSE}
-# install.packages("stat302Package)
-library(stat302Package)
-```
-
-Alternatively, you can install the development version directly from GitHub.
+To download the stat302 package, you can install the development version 
+directly from GitHub.
 
 ```{r eval=FALSE}
 # install.packages("devtools")
@@ -24,26 +18,24 @@ devtools::install_github("laurenng/stat302Package")
 library(stat302Package)
 ```
 
-# Use
-
-The vignette demonstrates example usage of all main functions. Please file an issue if you have a request for a tutorial that is not currently included. You can see the vignette by using the following code:
-
-```{r eval=FALSE}
-library(stat302Package)
-# Use this to view the vignette in the stat302Package HTML help
-help(package = "stat302Package", help_type = "html")
-# Use this to view the vignette as an isolated HTML file
-utils::browseVignettes(package = "stat302Package")
-```
-
 # Tutorial for my_t.test
 
-First we need to specify the data we are working with. So for all examples, 
-we will be using the life Expectancy column from my_gapminder. 
+First we need to specify the data we are working with. So for all examples 
+in this function, we will be using the life Expectancy column from my_gapminder. 
 ```{r}
 data <- stat302Package::my_gapminder
 lifeExpectancy <- data$lifeExp
 ```
+
+Next, we will start analyzing my_t.test function. This function takes in 3 
+parameters:
+1. x - a numeric vector of data
+2. alternative - a character string specifying the alternative hypothesis.
+               - the acceptable values would be "two.sided", "less", "greater" 
+3. mu - a number indicating the null hypothesis value of the mean.
+
+The function then returns a list with the following elements: numeric test 
+statistic,degree of freedom, value of alternative parameter, and the p-value
 
 ## Two-sided T-Test
 $$
@@ -53,12 +45,15 @@ H_a: \mu &\neq 60
 \end{align}
 $$
 ```{r}
-two_sided_t_test <- my_t.test(lifeExpectancy, alternative = "two.sided", mu = 60)
+two_sided_t_test <- stat302Package::my_t.test(lifeExpectancy, 
+                              alternative = "two.sided",
+                              mu = 60)
 print(two_sided_t_test$p_val)
 ``` 
 From doing a two-sided t test on the life expectancy of gapminder data, we find 
 that the p-value is 0.09. This value is greater than the $$ \sigma $$ = 0.05 
-cut-off. Therefore, we cannot conclude anything and cannot reject the null hypothesis. 
+cut-off. Therefore, we cannot conclude anything and cannot reject the null
+hypothesis. 
 
 ## Testing a Hypothesis of:
 $$
@@ -69,15 +64,19 @@ H_a: \mu &< 60
 $$
 
 
-##QUESTUON HERE!! 
+##QUESTUON HERE!! ARE WE SUPPOSED TO DO 1 - value or just value. currently I have 
+0.95 but should it be 0.4.
 ```{r}
-less_than_t_test <- my_t.test(lifeExpectancy, alternative = "less", mu = 60)
+less_than_t_test <- stat302Package::my_t.test(lifeExpectancy, 
+                                              alternative = "less", 
+                                              mu = 60)
 print(less_than_t_test$p_val)
 ``` 
 
 From performing a t test on an alternative hypothesis where mu is less than 60, 
-we find that the p-value is 0.95. This value is greater than the $$ \sigma $$ = 0.05 
-cut-off. Therefore, we cannot conclude anything and cannot reject the null hypothesis. 
+we find that the p-value is 0.95. This value is greater than the $$ \sigma $$ 
+= 0.05 cut-off. Therefore, we cannot conclude anything and cannot reject the
+null hypothesis. 
 
 ## Greater T-Test
 $$
@@ -87,23 +86,28 @@ H_a: \mu &> 60
 \end{align}
 $$
 ```{r}
-greater_than_t_test <- my_t.test(lifeExpectancy, alternative = "greater", mu = 60)
+greater_than_t_test <- stat302Package::my_t.test(lifeExpectancy, 
+                                 alternative = "greater",
+                                 mu = 60)
 print(greater_than_t_test$p_val)
 ``` 
 From performing a t test on an alternative hypothesis where mu is less than 60, 
-we find that the p-value is 0.95. This value is less than the $$ \sigma $$ = 0.05 
-cut-off. Therefore, we can reject the null hypothesis and say than mu is not 60.  
+we find that the p-value is 0.95. This value is less than the $$ \sigma $$ = 
+0.05 cut-off. Therefore, we can reject the null hypothesis and say than mu is 
+not 60.  
 
 # Tutorial for my_lm
 ```{r}
-lm_model <- my_lm(lifeExp ~ gdpPercap + continent, data = stat302Package::my_gapminder)
+lm_model <- stat302Package::my_lm(lifeExp ~ gdpPercap + continent,
+                  data = stat302Package::my_gapminder)
 
 # let's looks speicfically at the gdpPercap variable
 gdp_data <- lm_model["gdpPercap", ]
 print(gdp_data)
 ```
-looking specifically at the gdpPercap variable, the model performed tells us that 
-for every 1 increase of GDP per capital, the life expectancy increases by 4.45. 
+looking specifically at the gdpPercap variable, the model performed tells
+us that for every 1 increase of GDP per capital, the life expectancy 
+increases by 4.45. 
 
 ## Hypothesis test 
 $$
@@ -112,21 +116,27 @@ H_0: \mu &= 0.000445\\
 H_a: \mu &\neq 0.000445
 \end{align}
 $$
+The hypothesis test is testing whether we can reject or not conclude anything
+with the estimate beta value of gdpPercap. 
 
 ## P value interpretation
 ```{r}
 print(gdp_data["Pr(>|t|)"])
 ```
-The p-value for this model is nearly 0 and less than the $$\sigma$$ = 0.05 cutoff. 
-Therefore, we can reject the null hypothesis and say that mu is not 60. 
+The p-value for this model is nearly 0 and less than the $$\sigma$$ = 0.05 
+cutoff. Therefore, we can reject the null hypothesis and say that the beta value
+of gdpPercap is 0.00045. 
+
+## ^^???? CORRECT?? 
 
 ## Actual VS Fitted 
 ```{r}
 library(ggplot2)
 
-lifeExpected <- stat302Package::my_gapminder$lifeExp 
+gapminder_data <- stat302Package::my_gapminder
+lifeExpected <- gapminder_data$lifeExp 
 
-# I don't get!!! 
+# I don't get!!! how do we find yhat?? 
 lm_model
 interceptVar <- lm_model[1,1]
 gdpPercapVar <- lm_model[2,1]
@@ -136,7 +146,7 @@ continentEuropeVar <- lm_model[5,1]
 continentOceaniaVar <- lm_model[6,1]
 
 yhat_values <- c()
-for (i in 1:nrow(my_gapminder)) {
+for (i in 1:nrow(gapminder_data)) {
   model_value <- interceptVar + (gdpPercapVar * i) + (continentAmericasVar * i) 
   + (continentAsiaVar * i) + (continentEuropeVar * i) + (continentOceaniaVar * i)
   yhat_values <- append(yhat_values, model_value)
@@ -146,6 +156,7 @@ yhat <- lifeExpected * as.numeric(gdp_data["Estimate"])
 
 my_df <- data.frame(actual = lifeExpected, fitted = yhat)
 
+# plotting the fitted vs actual values 
 ggplot(my_df, aes(x = fitted, y = actual)) +
   geom_point() +
   geom_abline(slope = 1, intercept = 0, col = "red", lty = 2) + 
@@ -153,7 +164,7 @@ ggplot(my_df, aes(x = fitted, y = actual)) +
   labs(x = "Fitted values", y = "Actual values", title = "Actual vs. Fitted") +
   theme(plot.title = element_text(hjust = 0.5)) 
 
-# TESTNINGSS 
+# TESTNINGSS example delete later
 data(mtcars)
 my_lm <- lm(mpg ~ hp + wt, data = mtcars)
 mod_fits <- fitted(my_lm)
@@ -169,28 +180,37 @@ ggplot(my_df, aes(x = fitted, y = actual)) +
 
 # Tutorial for my_knn_cv
 ```{r}
-data <- my_penguins %>%
+library(tidyverse)
+
+# Creating the datasets used in performing the function, my_knn_cv
+data <- stat302Package::my_penguins %>%
         tidyr::drop_na()
 train_data <- data %>%
              dplyr::select(bill_length_mm, bill_depth_mm,
                     flipper_length_mm, body_mass_g)
 target_class <- data$species
 
+# initializing the vectors 
 miscalc_rates <- c()
 cv_rates <- c()
+
+# iterating through 1-10 neighbors in the function my_knn_cv
 for (i in 1:10){
-  my_knn <- my_knn_cv(train_data, target_class, i, 5)
-  cv_rates <- append(cv_rates, demo$cv_error)
-  # training miscalc rates 
+  # performing my_knn_cv with the datasets and i number of neighbors
+  my_knn <- stat302Package::my_knn_cv(train_data, target_class, i, 5)
+  cv_rates <- append(cv_rates, my_knn$cv_error)
   
-  knn_miscalc <- knn(data[3:6], data[3:6], my_knn$class)
+  # calculating training miscalc rates 
+  knn_miscalc <- class::knn(train_data, train_data, my_knn$class)
   miscalc_true <- mean(knn_miscalc != target_class)
   miscalc_rates <- append(miscalc_rates, miscalc_true)
 }
 
 ## are data frames and tables the same?? 
+## WHY IS MY TRAINING MISCALC RATE SO HIGH 
 total_set <- data.frame(miscalc_rates, cv_rates)
-colnames(total_set) <- c("Training Miscalculation Rate", "CV Miscalculation Rate")
+colnames(total_set) <- c("Training Miscalculation Rate", 
+                         "CV Miscalculation Rate")
 print(total_set)
 ```
 
@@ -210,31 +230,35 @@ perform outside of the sample data and using other data.
 
 # Tutorial for my_rf_cv
 ```{r}
-
+# creating 
 all_cv <- data.frame("Name"=character(), 
                  "Value"=double(), 
                  stringsAsFactors=FALSE) 
 
+# performing 30 tests for each fold listed here: 2, 5, 10 
+# to create a dataframe utilized in the boxplot below 
 for (i in c(2, 5, 10)) {
   for (t in 1:30) {
     all_cv <- rbind(all_cv, c("Name" = i,
-                              "Value" = my_rf_cv(i))) 
+                              "Value" = stat302Package::my_rf_cv(i))) 
   }
 }
 
-print(all_cv)
-
+# formatting dataframe for the boxplot
 colnames(all_cv) <- c("Name", "Value")
 all_cv$Name <- as.factor(all_cv$Name)
-cv_boxplot <- ggplot(all_cv, aes(x=Name, y=Value)) + 
-  geom_boxplot() + 
-  labs(title="Plot of number of folds",
+
+# creating the boxplot
+cv_boxplot <- ggplot2::ggplot(all_cv, ggplot2::aes(x=Name, y=Value)) + 
+  ggplot2::geom_boxplot() + 
+  ggplot2::labs(title="Plot of number of folds",
        x="# of folds", 
        y = "Cross Validation error",
        caption = "this boxplot illustrates the variation of 30 tests
        done with the specified number of folds and their CV rates") + 
-   theme(plot.title = element_text(hjust = 0.5))
+   ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
 
+# displaying the boxplot
 cv_boxplot
 ```
 When analyzing the diagram, we see that the less folds there are, the greater 
@@ -245,16 +269,24 @@ But doesn't mean it is the most reliable.
 
 ## Table of Mean and Standard Deviation
 ```{r}
+# creating placeholder for the data 
 mean_sd_table <- data.frame("mean"=double(), 
                  "standard deviation"=double(), 
                  stringsAsFactors=FALSE) 
 
-library(dplyr)
+# 
 table <- all_cv %>%
-  group_by(Name) %>%
-  summarise(mean = mean(Value), sd = sd(Value))
-```
+  dplyr::group_by(Name) %>%
+  dplyr::summarise(mean = mean(Value), sd = sd(Value))
 
+table
+```
+Discuss the results you observe in the boxplots and table. Compare the means and standard deviations of the the different values of k and comment on why you think this is the case.
+
+
+
+
+# setup files 
 ```{r, include = FALSE }
 knitr::opts_chunk$set(
   collapse = TRUE,

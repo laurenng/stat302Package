@@ -34,4 +34,5 @@ target_class <- data$species
 my_knn_cv(train_data, target_class, 1, 5)
 
 }
-\keyword{knn_cv}
+\keyword{knn_cv,}
+\keyword{prediction}

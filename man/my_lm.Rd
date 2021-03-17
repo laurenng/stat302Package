@@ -23,4 +23,5 @@ my_lm(lifeExp ~ gdpPercap + continent, data = my_gapminder)
 
 }
 \keyword{linear}
-\keyword{model}
+\keyword{model,}
+\keyword{prediction}
