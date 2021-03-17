@@ -22,6 +22,7 @@ This function conducts a linear model function on the given formula and data
 my_lm(lifeExp ~ gdpPercap + continent, data = my_gapminder)
 
 }
+\keyword{inference}
 \keyword{linear}
 \keyword{model,}
-\keyword{prediction}
+\keyword{prediction,}

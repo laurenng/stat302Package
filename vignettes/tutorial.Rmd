@@ -29,13 +29,19 @@ lifeExpectancy <- data$lifeExp
 
 Next, we will start analyzing my_t.test function. This function takes in 3 
 parameters:
+
 1. x - a numeric vector of data
+
 2. alternative - a character string specifying the alternative hypothesis.
                - the acceptable values would be "two.sided", "less", "greater" 
+               
 3. mu - a number indicating the null hypothesis value of the mean.
 
 The function then returns a list with the following elements: numeric test 
 statistic,degree of freedom, value of alternative parameter, and the p-value
+
+For this tutorial, we'll be looking specifically at the different alternative
+tests and the significance of the t-test result via the p-value. 
 
 ## Two-sided T-Test
 $$
@@ -51,7 +57,7 @@ two_sided_t_test <- stat302Package::my_t.test(lifeExpectancy,
 print(two_sided_t_test$p_val)
 ``` 
 From doing a two-sided t test on the life expectancy of gapminder data, we find 
-that the p-value is 0.09. This value is greater than the $$ \sigma $$ = 0.05 
+that the p-value is 0.09. This value is greater than the  $\sigma$ = 0.05 
 cut-off. Therefore, we cannot conclude anything and cannot reject the null
 hypothesis. 
 
@@ -74,7 +80,7 @@ print(less_than_t_test$p_val)
 ``` 
 
 From performing a t test on an alternative hypothesis where mu is less than 60, 
-we find that the p-value is 0.95. This value is greater than the $$ \sigma $$ 
+we find that the p-value is 0.95. This value is greater than the  $\sigma$
 = 0.05 cut-off. Therefore, we cannot conclude anything and cannot reject the
 null hypothesis. 
 
@@ -85,6 +91,7 @@ H_0: \mu &= 60\\
 H_a: \mu &> 60
 \end{align}
 $$
+
 ```{r}
 greater_than_t_test <- stat302Package::my_t.test(lifeExpectancy, 
                                  alternative = "greater",
@@ -92,11 +99,14 @@ greater_than_t_test <- stat302Package::my_t.test(lifeExpectancy,
 print(greater_than_t_test$p_val)
 ``` 
 From performing a t test on an alternative hypothesis where mu is less than 60, 
-we find that the p-value is 0.95. This value is less than the $$ \sigma $$ = 
+we find that the p-value is 0.95. This value is less than the $\sigma$ = 
 0.05 cut-off. Therefore, we can reject the null hypothesis and say than mu is 
 not 60.  
 
 # Tutorial for my_lm
+
+The my_lm function is a linear model inference and prediction formula. It'll 
+take in a formula 
 ```{r}
 lm_model <- stat302Package::my_lm(lifeExp ~ gdpPercap + continent,
                   data = stat302Package::my_gapminder)
@@ -112,48 +122,41 @@ increases by 4.45.
 ## Hypothesis test 
 $$
 \begin{align}
-H_0: \mu &= 0.000445\\
-H_a: \mu &\neq 0.000445
+H_0: \mu &= 0\\
+H_a: \mu &\neq 0
 \end{align}
 $$
 The hypothesis test is testing whether we can reject or not conclude anything
 with the estimate beta value of gdpPercap. 
 
-## P value interpretation
+## P-value interpretation
 ```{r}
 print(gdp_data["Pr(>|t|)"])
 ```
-The p-value for this model is nearly 0 and less than the $$\sigma$$ = 0.05 
-cutoff. Therefore, we can reject the null hypothesis and say that the beta value
-of gdpPercap is 0.00045. 
+The p-value for this model is nearly 0 and less than the $\sigma$ = 0.05 
+cutoff. Therefore, we can reject the null hypothesis and beta is not equal 
+to 0. 
 
-## ^^???? CORRECT?? 
-
-## Actual VS Fitted 
+## Actual VS Fitted Boxplot
 ```{r}
 library(ggplot2)
 
+# FINDING fitted yhat
+# getting the matrix of the estimates value 
+my_estimates <- as.matrix(lm_model[,"Estimate"])
+
+# fitting data into matrix to create x matrix
+x_mat <- model.matrix(lifeExp ~ gdpPercap + continent,
+                      stat302Package::my_gapminder)
+
+# matrix multiplication to get yhat 
+yhat <- x_mat %*% my_estimates
+
+# declaring actual values 
 gapminder_data <- stat302Package::my_gapminder
 lifeExpected <- gapminder_data$lifeExp 
 
-# I don't get!!! how do we find yhat?? 
-lm_model
-interceptVar <- lm_model[1,1]
-gdpPercapVar <- lm_model[2,1]
-continentAmericasVar <- lm_model[3,1]
-continentAsiaVar <- lm_model[4,1]
-continentEuropeVar <- lm_model[5,1]
-continentOceaniaVar <- lm_model[6,1]
-
-yhat_values <- c()
-for (i in 1:nrow(gapminder_data)) {
-  model_value <- interceptVar + (gdpPercapVar * i) + (continentAmericasVar * i) 
-  + (continentAsiaVar * i) + (continentEuropeVar * i) + (continentOceaniaVar * i)
-  yhat_values <- append(yhat_values, model_value)
-}
-# finding yhat 
-yhat <- lifeExpected * as.numeric(gdp_data["Estimate"])
-
+# Creating dataframe with actual and fitted values 
 my_df <- data.frame(actual = lifeExpected, fitted = yhat)
 
 # plotting the fitted vs actual values 
@@ -163,28 +166,16 @@ ggplot(my_df, aes(x = fitted, y = actual)) +
   theme_bw(base_size = 15) +
   labs(x = "Fitted values", y = "Actual values", title = "Actual vs. Fitted") +
   theme(plot.title = element_text(hjust = 0.5)) 
-
-# TESTNINGSS example delete later
-data(mtcars)
-my_lm <- lm(mpg ~ hp + wt, data = mtcars)
-mod_fits <- fitted(my_lm)
-my_df <- data.frame(actual = mtcars$mpg, fitted = mod_fits)
-ggplot(my_df, aes(x = fitted, y = actual)) +
-  geom_point() +
-  geom_abline(slope = 1, intercept = 0, col = "red", lty = 2) + 
-  theme_bw(base_size = 15) +
-  labs(x = "Fitted values", y = "Actual values", title = "Actual vs. Fitted") +
-  theme(plot.title = element_text(hjust = 0.5))
-
 ```
 
 # Tutorial for my_knn_cv
 ```{r}
-library(tidyverse)
+library(dplyr)
+library(tidyr)
 
 # Creating the datasets used in performing the function, my_knn_cv
 data <- stat302Package::my_penguins %>%
-        tidyr::drop_na()
+        drop_na()
 train_data <- data %>%
              dplyr::select(bill_length_mm, bill_depth_mm,
                     flipper_length_mm, body_mass_g)
@@ -201,27 +192,27 @@ for (i in 1:10){
   cv_rates <- append(cv_rates, my_knn$cv_error)
   
   # calculating training miscalc rates 
-  knn_miscalc <- class::knn(train_data, train_data, my_knn$class)
+  knn_miscalc <- class::knn(train_data, train_data, k = i, target_class)
   miscalc_true <- mean(knn_miscalc != target_class)
   miscalc_rates <- append(miscalc_rates, miscalc_true)
 }
 
-## are data frames and tables the same?? 
-## WHY IS MY TRAINING MISCALC RATE SO HIGH 
 total_set <- data.frame(miscalc_rates, cv_rates)
 colnames(total_set) <- c("Training Miscalculation Rate", 
                          "CV Miscalculation Rate")
 print(total_set)
 ```
 
-Based off the tests perform on my_knn = 1 to 10, I would chose row 6.
-We can see that row 8 has the lowest miscalculation rates
-thus also resulting in a higher cross validation rate. Making it the best test
-in the current dataset we have to work with.
+Based off the tests perform on my_knn = 1 to 10, I would chose row 1 with 1 
+neighbor as it has the lowest Cross Validation miscalculation rate. Which means
+that this model will perform the most accurately with other data the model 
+hasn't seen before. 
 
-However, in practice, I would test on a larger sample size and ensure that the 
-miscalculation rates were lower. Ideally, having less than 5% error and a cross
-validation rate closer to 1. 
+However, in practice, I would pick the test with the lowest cross validation 
+misclassification rate as it'll give us insights into how much error there 
+is amongst the multiple folds and tests being performed to create the model. 
+This will also inform us on how the model will performoutside of the sample 
+data. So having a low misclassification rate would be ideal.
 
 ## what is cross validation?? 
 Cross validation is used to evaluate the model and tells us approximately how 
@@ -230,7 +221,7 @@ perform outside of the sample data and using other data.
 
 # Tutorial for my_rf_cv
 ```{r}
-# creating 
+# initializing dataframe for cross validation error 
 all_cv <- data.frame("Name"=character(), 
                  "Value"=double(), 
                  stringsAsFactors=FALSE) 
@@ -261,6 +252,7 @@ cv_boxplot <- ggplot2::ggplot(all_cv, ggplot2::aes(x=Name, y=Value)) +
 # displaying the boxplot
 cv_boxplot
 ```
+
 When analyzing the diagram, we see that the less folds there are, the greater 
 the variance in rates. We also can see that the cross validation rates for 2 
 folds is overall greater than the other folds. Interestingly enough, we find
@@ -274,17 +266,23 @@ mean_sd_table <- data.frame("mean"=double(),
                  "standard deviation"=double(), 
                  stringsAsFactors=FALSE) 
 
-# 
-table <- all_cv %>%
+# finding means and standard deviations of each fold group
+mean_sd_table <- all_cv %>%
   dplyr::group_by(Name) %>%
   dplyr::summarise(mean = mean(Value), sd = sd(Value))
 
-table
+# printing table out 
+mean_sd_table
 ```
-Discuss the results you observe in the boxplots and table. Compare the means and standard deviations of the the different values of k and comment on why you think this is the case.
 
+When looking at the table, we can confirm the observations above are true. We
+can clearly see a decrease in standard deviations and decrease in mean 
+as the number of folds increase. I think this is the case because we are 
+performing more scenarios and so within the cross validation algorithm, outliers
+are being canceled out. 
 
-
+With only two folds, there is less opportunity for outlier data to be canceled 
+and balanced out. This is where we see a sharp decrease in standard deviations.
 
 # setup files 
 ```{r, include = FALSE }

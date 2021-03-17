@@ -5,7 +5,7 @@
 #'
 #' @param formula formula for the linear model (ie: lifeExp ~ gdpPercap + pop)
 #' @param data data frame the formula is based on
-#' @keywords linear model, prediction
+#' @keywords linear model, prediction, inference
 #'
 #' @return table with rows for each coefficient and columns for the Estimate,
 #'         Std. Error, t value, and Pr(>|t|)
