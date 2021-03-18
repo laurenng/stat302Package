@@ -8,7 +8,15 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-# Installation
+# Introduction 
+The goal of stat302Package is to demonstrate my understandings of R packages. 
+This package includes the following functions: 
+- my_t.test
+- my_lm
+- my_knn_cv
+- my_rf_cv
+
+## Installation
 To download the stat302 package, you can install the development version 
 directly from GitHub.
 
@@ -51,9 +59,12 @@ H_a: \mu &\neq 60
 \end{align}
 $$
 ```{r}
+# performing a t-test with a less than alternative 
 two_sided_t_test <- stat302Package::my_t.test(lifeExpectancy, 
                               alternative = "two.sided",
                               mu = 60)
+
+# printing out the p-value
 print(two_sided_t_test$p_val)
 ``` 
 From doing a two-sided t test on the life expectancy of gapminder data, we find 
@@ -68,14 +79,13 @@ H_0: \mu &= 60\\
 H_a: \mu &< 60
 \end{align}
 $$
-
-
-##QUESTUON HERE!! ARE WE SUPPOSED TO DO 1 - value or just value. currently I have 
-0.95 but should it be 0.4.
 ```{r}
+# performing a t-test with a less than alternative 
 less_than_t_test <- stat302Package::my_t.test(lifeExpectancy, 
                                               alternative = "less", 
                                               mu = 60)
+
+# printing out the p-value
 print(less_than_t_test$p_val)
 ``` 
 
@@ -93,9 +103,12 @@ H_a: \mu &> 60
 $$
 
 ```{r}
+# performing a t-test with a less than alternative 
 greater_than_t_test <- stat302Package::my_t.test(lifeExpectancy, 
                                  alternative = "greater",
                                  mu = 60)
+
+# printing out the p-value
 print(greater_than_t_test$p_val)
 ``` 
 From performing a t test on an alternative hypothesis where mu is less than 60, 
@@ -108,6 +121,7 @@ not 60.
 The my_lm function is a linear model inference and prediction formula. It'll 
 take in a formula 
 ```{r}
+# performing a linear model using the package's my_lm function 
 lm_model <- stat302Package::my_lm(lifeExp ~ gdpPercap + continent,
                   data = stat302Package::my_gapminder)
 
@@ -160,13 +174,25 @@ lifeExpected <- gapminder_data$lifeExp
 my_df <- data.frame(actual = lifeExpected, fitted = yhat)
 
 # plotting the fitted vs actual values 
-ggplot(my_df, aes(x = fitted, y = actual)) +
+fitted_actual_scatter <- ggplot(my_df, aes(x = fitted, y = actual)) +
   geom_point() +
   geom_abline(slope = 1, intercept = 0, col = "red", lty = 2) + 
   theme_bw(base_size = 15) +
-  labs(x = "Fitted values", y = "Actual values", title = "Actual vs. Fitted") +
+  labs(x = "Fitted values", 
+       y = "Actual values", 
+       title = "Actual vs. Fitted",
+       caption = "This shows off the performance of the model ") +
   theme(plot.title = element_text(hjust = 0.5)) 
+
+fitted_actual_scatter
 ```
+Each dot represents each row in the dataset. The dotted red reference line is 
+where we want all the dots to lie, as it means that the fitted values are equal 
+to the actual values.
+
+In our diagram, we can see that the lower the fitted variables, the more
+variance exists. But as we increase, the fitted values are becoming more 
+and more similar to the actual values and following the reference line. 
 
 # Tutorial for my_knn_cv
 ```{r}
@@ -197,9 +223,12 @@ for (i in 1:10){
   miscalc_rates <- append(miscalc_rates, miscalc_true)
 }
 
+# formatting the dataframe with the correct headers 
 total_set <- data.frame(miscalc_rates, cv_rates)
 colnames(total_set) <- c("Training Miscalculation Rate", 
                          "CV Miscalculation Rate")
+
+# viewing the total set 
 print(total_set)
 ```
 
@@ -208,10 +237,10 @@ neighbor as it has the lowest Cross Validation miscalculation rate. Which means
 that this model will perform the most accurately with other data the model 
 hasn't seen before. 
 
-However, in practice, I would pick the test with the lowest cross validation 
+In practice, I would pick the test with the lowest cross validation 
 misclassification rate as it'll give us insights into how much error there 
 is amongst the multiple folds and tests being performed to create the model. 
-This will also inform us on how the model will performoutside of the sample 
+This will also inform us on how the model will perform outside of the sample 
 data. So having a low misclassification rate would be ideal.
 
 ## what is cross validation?? 
